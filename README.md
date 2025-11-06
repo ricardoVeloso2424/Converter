@@ -59,4 +59,3 @@ Executar: py converson.py
 -   WebM usa VP9 + Opus
 -   Dimensões de vídeo são forçadas a valores pares
 -   ffprobe é usado para ler duração e dimensões
-
