@@ -1,0 +1,84 @@
+Conversor – Image e Video Converter
+
+Aplicação Tkinter em Python para converter imagens e vídeos. Usa FFmpeg para vídeo e Pillow para imagens. Suporta mudança de formato, redimensionamento, preservação de proporções, qualidade, barra de progresso e ETA.
+
+Funcionalidades
+
+Suporta imagens: png, jpg, jpeg, webp, bmp, tif, tiff, gif
+
+Suporta vídeos: mp4, webm, avi, mov, mkv
+
+Sugestão automática de resoluções compatíveis
+
+Aspect ratio: Original, 16:9, 4:3, 1:1, 9:16, 3:2, 4:5
+
+Presets de qualidade para vídeo: Alta, Normal, Rápido
+
+Upscaling opcional
+
+Barra de progresso + percentagem + tempo restante
+
+Evita sobrescrever o ficheiro original
+
+Usa hardware encoding quando disponível (NVENC, AMF, QSV, VideoToolbox)
+
+Dependências
+
+Python 3.11+
+Pillow
+imageio-ffmpeg
+FFmpeg (inclui ffprobe)
+
+Instalação (macOS)
+
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install pillow imageio-ffmpeg
+brew install ffmpeg
+
+Executar:
+python converson.py
+
+Instalação (Windows)
+
+py -3.12 -m venv .venv
+..venv\Scripts\Activate.ps1
+pip install --upgrade pip
+pip install pillow imageio-ffmpeg
+
+Instalar FFmpeg estático para Windows (x64).
+Garantir que ffmpeg.exe e ffprobe.exe estão no PATH ou na pasta do projeto.
+
+Executar:
+py converson.py
+
+Uso
+
+Abrir a aplicação
+
+Carregar um ficheiro (imagem ou vídeo)
+
+Escolher formato, resolução, qualidade e ratio
+
+Definir destino do output
+
+Carregar "Converter"
+
+Para vídeos: acompanhar percentagem e ETA
+
+Comportamento interno
+
+Imagens redimensionadas com LANCZOS
+
+JPEG converte RGBA/Palette para RGB automaticamente
+
+Vídeos MP4/MOV/MKV/AVI mantêm stream copy se a resolução + ratio forem iguais
+
+Caso contrário usa H.264 (hardware encoder se existir; fallback libx264)
+
+WebM usa VP9 + Opus
+
+Dimensões de vídeo são forçadas a valores pares
+
+ffprobe é usado para ler duração e dimensões
