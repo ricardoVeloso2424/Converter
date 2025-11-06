@@ -1,84 +1,103 @@
-Conversor – Image e Video Converter
+# Conversor -- Image e Video Converter
 
-Aplicação Tkinter em Python para converter imagens e vídeos. Usa FFmpeg para vídeo e Pillow para imagens. Suporta mudança de formato, redimensionamento, preservação de proporções, qualidade, barra de progresso e ETA.
+Aplicação Tkinter em Python para converter imagens e vídeos. Usa FFmpeg
+para vídeo e Pillow para imagens. Suporta mudança de formato,
+redimensionamento, preservação de proporções, qualidade, barra de
+progresso e ETA.
 
-Funcionalidades
+## Funcionalidades
 
-Suporta imagens: png, jpg, jpeg, webp, bmp, tif, tiff, gif
+-   Suporta imagens: png, jpg, jpeg, webp, bmp, tif, tiff, gif
+-   Suporta vídeos: mp4, webm, avi, mov, mkv
+-   Sugestão automática de resoluções compatíveis
+-   Aspect ratio: Original, 16:9, 4:3, 1:1, 9:16, 3:2, 4:5
+-   Presets de qualidade para vídeo: Alta, Normal, Rápido
+-   Upscaling opcional
+-   Barra de progresso + percentagem + tempo restante
+-   Evita sobrescrever o ficheiro original
+-   Usa hardware encoding quando disponível (NVENC, AMF, QSV,
+    VideoToolbox)
 
-Suporta vídeos: mp4, webm, avi, mov, mkv
+## Dependências
 
-Sugestão automática de resoluções compatíveis
+Python 3.11+ Pillow imageio-ffmpeg FFmpeg (inclui ffprobe)
 
-Aspect ratio: Original, 16:9, 4:3, 1:1, 9:16, 3:2, 4:5
+## Instalação (macOS)
 
-Presets de qualidade para vídeo: Alta, Normal, Rápido
+python3 -m venv .venv source .venv/bin/activate pip install --upgrade
+pip pip install pillow imageio-ffmpeg brew install ffmpeg
 
-Upscaling opcional
+Executar: python converson.py
 
-Barra de progresso + percentagem + tempo restante
+## Instalação (Windows)
 
-Evita sobrescrever o ficheiro original
+py -3.12 -m venv .venv ..venv`\Scripts`{=tex}`\Activate`{=tex}.ps1 pip
+install --upgrade pip pip install pillow imageio-ffmpeg
 
-Usa hardware encoding quando disponível (NVENC, AMF, QSV, VideoToolbox)
+Instalar FFmpeg estático para Windows (x64). Garantir que ffmpeg.exe e
+ffprobe.exe estão no PATH ou na pasta do projeto.
 
-Dependências
+Executar: py converson.py
 
-Python 3.11+
-Pillow
-imageio-ffmpeg
-FFmpeg (inclui ffprobe)
+## Uso
 
-Instalação (macOS)
+1.  Abrir a aplicação
+2.  Carregar um ficheiro (imagem ou vídeo)
+3.  Escolher formato, resolução, qualidade e ratio
+4.  Definir destino do output
+5.  Carregar "Converter"
+6.  Para vídeos: acompanhar percentagem e ETA
 
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install pillow imageio-ffmpeg
-brew install ffmpeg
+## Comportamento interno
 
-Executar:
-python converson.py
+-   Imagens redimensionadas com LANCZOS
+-   JPEG converte RGBA/Palette para RGB automaticamente
+-   Vídeos MP4/MOV/MKV/AVI mantêm stream copy se a resolução + ratio
+    forem iguais
+-   Caso contrário usa H.264 (hardware encoder se existir; fallback
+    libx264)
+-   WebM usa VP9 + Opus
+-   Dimensões de vídeo são forçadas a valores pares
+-   ffprobe é usado para ler duração e dimensões
 
-Instalação (Windows)
+## Criar executável para Windows (.exe)
 
-py -3.12 -m venv .venv
-..venv\Scripts\Activate.ps1
-pip install --upgrade pip
-pip install pillow imageio-ffmpeg
+Não é possível compilar um .exe no macOS com PyInstaller. A build tem de
+ser feita num Windows.
 
-Instalar FFmpeg estático para Windows (x64).
-Garantir que ffmpeg.exe e ffprobe.exe estão no PATH ou na pasta do projeto.
+1.  Criar requirements.txt\
+    pillow\
+    imageio-ffmpeg\
+    pyinstaller
 
-Executar:
-py converson.py
+2.  Colocar ffmpeg.exe e ffprobe.exe em ffmpeg-bin 
 
-Uso
+3.  No Windows:
 
-Abrir a aplicação
+py -3.12 -m venv .venv\
+..venv`\Scripts`{=tex}`\pip `{=tex}install --upgrade pip\
+..venv`\Scripts`{=tex}`\pip `{=tex}install -r requirements.txt
 
-Carregar um ficheiro (imagem ou vídeo)
+..venv`\Scripts`{=tex}`\pyinstaller `{=tex}--windowed --onefile --name
+Conversor \^ --add-binary "ffmpeg-bin`\ffmpeg`{=tex}.exe;." \^
+--add-binary "ffmpeg-bin`\ffprobe`{=tex}.exe;." \^ converson.py
 
-Escolher formato, resolução, qualidade e ratio
+O executável final aparece em dist`\Conversor`{=tex}.exe
 
-Definir destino do output
+## Problemas comuns
 
-Carregar "Converter"
+FFmpeg não encontrado: falta ffmpeg.exe ou ffprobe.exe\
+Erro 0xc000007b: mistura 32/64 bits\
+WebM lento: VP9 é pesado\
+NVENC/QSV/AMF não aparecem: build de FFmpeg sem hardware encoders
 
-Para vídeos: acompanhar percentagem e ETA
+## Estrutura recomendada
 
-Comportamento interno
+converson.py\
+requirements.txt\
+ffmpeg-bin/ffmpeg.exe\
+ffmpeg-bin/ffprobe.exe
 
-Imagens redimensionadas com LANCZOS
+## Licença
 
-JPEG converte RGBA/Palette para RGB automaticamente
-
-Vídeos MP4/MOV/MKV/AVI mantêm stream copy se a resolução + ratio forem iguais
-
-Caso contrário usa H.264 (hardware encoder se existir; fallback libx264)
-
-WebM usa VP9 + Opus
-
-Dimensões de vídeo são forçadas a valores pares
-
-ffprobe é usado para ler duração e dimensões
+MIT (ou outra à tua escolha)
