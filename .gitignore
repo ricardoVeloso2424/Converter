@@ -1,0 +1,5 @@
+        .venv/
+        ffmpeg-bin/
+        icon.ico
+        icon.png
+        make_ico.py
