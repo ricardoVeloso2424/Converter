@@ -3,3 +3,6 @@
         icon.ico
         icon.png
         make_ico.py
+        .DS_Store
+        Conversor.spec
+        lkcom.icns
