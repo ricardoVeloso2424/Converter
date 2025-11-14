@@ -479,8 +479,8 @@ class App(tk.Tk):
         self.ext_combo.bind("<<ComboboxSelected>>", self.on_ext_change)
 
         ttk.Button(frm, text="Guardar como...", command=self.pick_save).grid(row=1, column=2, sticky="w", pady=(10,0))
-        self.out_entry = ttk.Entry(frm, textvariable=self.output_path, width=52)
-        self.out_entry.grid(row=1, column=3, columnspan=4, sticky="we", padx=8, pady=(10,0))
+        self.out_entry = ttk.Entry(frm, textvariable=self.output_path, width=49)
+        self.out_entry.grid(row=1, column=3, columnspan=4, sticky="w", padx=8, pady=(10,0))
 
         ttk.Checkbutton(frm, text="Manter resolução original", variable=self.keep_src, command=self.apply_keep_src).grid(row=2, column=0, columnspan=2, sticky="w", pady=(10,0))
 
