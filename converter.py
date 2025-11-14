@@ -520,10 +520,20 @@ class App(tk.Tk):
         ttk.Label(frm, textvariable=self.status).grid(row=5, column=2, columnspan=5, sticky="w", padx=8, pady=(16,0))
 
         # Barra de progresso + percentagem
-        self.pbar = ttk.Progressbar(frm, orient="horizontal", mode="determinate", length=520, maximum=100)
-        self.pbar.grid(row=6, column=0, columnspan=6, sticky="w", pady=(8,0))
+        pfrm = ttk.Frame(frm)
+        pfrm.grid(row=6, column=0, columnspan=7, sticky="w", pady=(8,0))
+
+        self.pbar = ttk.Progressbar(
+            pfrm,
+            orient="horizontal",
+            mode="determinate",
+            length=520,
+            maximum=100,
+        )
+        self.pbar.pack(side="left")
+
         self.pbar_lbl = tk.StringVar(value="")
-        ttk.Label(frm, textvariable=self.pbar_lbl).grid(row=6, column=6, sticky="w", padx=8)
+        ttk.Label(pfrm, textvariable=self.pbar_lbl).pack(side="left", padx=8)   
 
         # ETA estimado
         self.eta_lbl = tk.StringVar(value="")
