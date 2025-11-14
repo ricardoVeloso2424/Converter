@@ -439,7 +439,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Conversor")
-        self.geometry("900x460")
+        self.geometry("900x350")
         self.resizable(False, False)
 
         self.input_path = tk.StringVar()
